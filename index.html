@@ -5,29 +5,22 @@
 <body>
 
 <div x-data="app">
-    <input x-model="college" placeholder="Name of College?"/>
-    <select x-model="state">
-        <template x-for="s in states">
-            <option :value="s.id" x-text="s.name">
-        </template>
-    </select>    
-    <button @click="addCollege">Add</button>
-
-    <br/>
+    <button @click="addCollege">Add a Previous College</button>
     <template x-for="(c, i) in colleges">
         <div>
-            <input :name="'colleges[' + i + '][state]'" :value="c.state" />
-            <input :name="'colleges[' + i + '][college]'" :value="c.college" />
-            <button @click="removeCollege(i)" x-html="'delete: ' + i"></button>
+            <input :name="'colleges[' + i + '][college]'" x-model="c.college" />
+            <select :name="'colleges[' + i + '][state]'" x-model="c.state">
+                <template x-for="s in states" :key="s.id">
+                    <option :value="s.id" x-text="s.name">
+                </template>
+            </select>    
+            <button @click="removeCollege(i)">Remove</button>
         </div>
     </template>
-    
 </div>
 
 <script>
 let app = {
-    'college': '',
-    'state': '',
     'colleges': [],
     'states': [
         {'id': 0, 'name': '-- select state --'},
@@ -38,11 +31,9 @@ let app = {
     ],
     addCollege: function() {
         this.colleges.push({
-            state: this.state,
-            college: this.college
+            state: 0,
+            college: ''
         });
-        this.state = "";
-        this.college = "";
     },
     removeCollege: function(i) {
         this.colleges.splice(i, 1);
