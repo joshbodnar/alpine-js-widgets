@@ -4,6 +4,12 @@
 </head>
 <body>
 
+<p>
+    This page behaves similarly to a to-do List, but made for listing out previously attended colleges. 
+    Each input is meant to be used as part of a form submission (this code will be injected into an existing codebase).
+    The form inputs will come in as an array on the backend for parsing/storing there.
+</p>
+
 <div x-data="app">
     <button @click="addCollege">Add a Previous College</button>
     <template x-for="(c, i) in colleges">
