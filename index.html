@@ -8,7 +8,7 @@
     <button @click="addCollege">Add a Previous College</button>
     <template x-for="(c, i) in colleges">
         <div>
-            <input :name="'colleges[' + i + '][college]'" x-model="c.college" />
+            <input :name="'colleges[' + i + '][college]'" x-model="c.college" placeholder="College Name?"/>
             <select :name="'colleges[' + i + '][state]'" x-model="c.state">
                 <template x-for="s in states" :key="s.id">
                     <option :value="s.id" x-text="s.name">
