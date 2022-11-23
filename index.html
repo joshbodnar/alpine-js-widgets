@@ -1,0 +1,53 @@
+<html>
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+
+<div x-data="app">
+    <input x-model="college" placeholder="Name of College?"/>
+    <select x-model="state">
+        <template x-for="s in states">
+            <option :value="s.id" x-text="s.name">
+        </template>
+    </select>    
+    <button @click="addCollege">Add</button>
+
+    <br/>
+    <template x-for="(c, i) in colleges">
+        <div>
+            <input :name="'colleges[' + i + '][state]'" :value="c.state" />
+            <input :name="'colleges[' + i + '][college]'" :value="c.college" />
+            <button @click="removeCollege(i)" x-html="'delete: ' + i"></button>
+        </div>
+    </template>
+    
+</div>
+
+<script>
+let app = {
+    'college': '',
+    'state': '',
+    'colleges': [],
+    'states': [
+        {'id': 0, 'name': '-- select state --'},
+        {'id': 1, 'name': 'Colorado'},
+        {'id': 2, 'name': 'Ohio'},
+        {'id': 3, 'name': 'Delaware'},
+        {'id': 4, 'name': 'Virginia'},
+    ],
+    addCollege: function() {
+        this.colleges.push({
+            state: this.state,
+            college: this.college
+        });
+        this.state = "";
+        this.college = "";
+    },
+    removeCollege: function(i) {
+        this.colleges.splice(i, 1);
+    }
+};
+</script>
+</body>
+</html>
